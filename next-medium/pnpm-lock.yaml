@@ -3,10 +3,12 @@ lockfileVersion: 5.4
 specifiers:
   '@sanity/base': ^2.30.1
   '@sanity/core': ^2.30.2
+  '@sanity/data-aspects': ^2.29.3
   '@sanity/default-layout': ^2.30.1
   '@sanity/default-login': ^2.30.1
   '@sanity/desk-tool': ^2.30.1
   '@sanity/eslint-config-studio': ^2.0.0
+  '@sanity/form-builder': ^2.30.1
   '@sanity/vision': ^2.30.1
   eslint: ^8.6.0
   prop-types: ^15.7
@@ -17,10 +19,12 @@ specifiers:
 dependencies:
   '@sanity/base': 2.30.1_e2j7mneen3arr2g7olztmnnfl4
   '@sanity/core': 2.30.2_sfoxds7t5ydpegc3knd667wn6m
+  '@sanity/data-aspects': 2.29.3
   '@sanity/default-layout': 2.30.1_e2j7mneen3arr2g7olztmnnfl4
   '@sanity/default-login': 2.30.1_zxhai4qal7ezfht52cx4u672cu
   '@sanity/desk-tool': 2.30.1_e4q64ok3bzn7pnw7gc7unp3d5y
   '@sanity/eslint-config-studio': 2.0.0_eslint@8.20.0
+  '@sanity/form-builder': 2.30.1_e2j7mneen3arr2g7olztmnnfl4
   '@sanity/vision': 2.30.1_e4q64ok3bzn7pnw7gc7unp3d5y
   eslint: 8.20.0
   prop-types: 15.8.1
