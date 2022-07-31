@@ -1,8 +1,13 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
 import Header from '../components/header';
+import { Post } from '../typings';
+import { sanityClient } from '../config';
 
-const Home: NextPage = () => {
+interface Props {
+  posts: Post[];
+}
+
+const Home = ({ posts }: Props) => {
   return (
     <div className=''>
       <Head>
@@ -27,8 +32,33 @@ const Home: NextPage = () => {
           M
         </div>
       </section>
+
+      <div>{JSON.stringify(posts)}</div>
     </div>
   );
 };
 
 export default Home;
+
+export const getServerSideProps = async () => {
+  const query = `
+    *[_type == "post"]{
+    _id,
+    title,
+    author -> {
+      name,
+      image,
+    },
+    description,
+    mainImage,
+    slug
+  }`;
+
+  const posts = await sanityClient.fetch(query);
+
+  return {
+    props: {
+      posts,
+    },
+  };
+};

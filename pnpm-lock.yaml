@@ -1,6 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@portabletext/react': ^1.0.6
+  '@sanity/image-url': ^1.0.1
   '@types/node': 17.0.35
   '@types/react': 18.0.9
   '@types/react-dom': 18.0.5
@@ -14,6 +16,8 @@ specifiers:
   typescript: 4.7.2
 
 dependencies:
+  '@portabletext/react': 1.0.6_react@18.1.0
+  '@sanity/image-url': 1.0.1
   next: 12.2.3_ef5jwxihqo6n7gxfmzogljlgcm
   next-sanity: 0.6.0_react@18.1.0
   react: 18.1.0
@@ -172,6 +176,27 @@ packages:
       fastq: 1.13.0
     dev: true
 
+  /@portabletext/react/1.0.6_react@18.1.0:
+    resolution: {integrity: sha512-j6BprLiwFz3zr1Lo6BxM2sQ1b3g1JIjGwePeuxqSfbBiEYbGXn2izEckMJ02hSa1f7+RCEUJ+Bojvtzz6BBUaw==}
+    peerDependencies:
+      react: ^17 || ^18
+    dependencies:
+      '@portabletext/toolkit': 1.0.5
+      '@portabletext/types': 1.0.3
+      react: 18.1.0
+    dev: false
+
+  /@portabletext/toolkit/1.0.5:
+    resolution: {integrity: sha512-kwVOfVoquufDQNmzzhGxji9A+/T+dhLKKOHEHldM1kMUoNzY6wwrt5H/Plnw4xbdE780kkwqJqHxjxoSYr706A==}
+    dependencies:
+      '@portabletext/types': 1.0.3
+    dev: false
+
+  /@portabletext/types/1.0.3:
+    resolution: {integrity: sha512-SDDsdury2SaTI2D5Ea6o+Y39SSZMYHRMWJHxkxYl3yzFP0n/0EknOhoXcoaV+bxGr2dTTqZi2TOEj+uWYuavSw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
+
   /@sanity/client/3.3.2:
     resolution: {integrity: sha512-M89v/KcNob0tnoMCW2caSnwYhSSqO1j5XuDXCloe966ZRFUAZWe9EVyyvvP7x1vPff5xR9PKxidrcx95l221mg==}
     engines: {node: '>=12'}
@@ -216,6 +241,11 @@ packages:
       throttle-debounce: 5.0.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@sanity/image-url/1.0.1:
+    resolution: {integrity: sha512-AdKQ3zMk7WdoNwoJPrAvQhW+kUtBldBX0nHtnGy+rwmgsCQ0rAXasrgH43Fhmsp/yB6piiq+F2d5qEuBFsdQVg==}
+    engines: {node: '>=10.0.0'}
     dev: false
 
   /@sanity/timed-out/4.0.2:
