@@ -1,10 +1,12 @@
 import Head from 'next/head';
-import Header from '../components/header';
-import { Post } from '../typings';
+import Header from '../components/Nav';
+import { PostType } from '../typings';
 import { sanityClient } from '../config';
+import Post from '../components/post';
+import Link from 'next/link';
 
 interface Props {
-  posts: Post[];
+  posts: PostType[];
 }
 
 const Home = ({ posts }: Props) => {
@@ -33,7 +35,17 @@ const Home = ({ posts }: Props) => {
         </div>
       </section>
 
-      <div>{JSON.stringify(posts)}</div>
+      <div className='grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-3 tablet:gap-4 w-full max-w-7xl mx-auto py-10 justify-items-center'>
+        {posts.map((post) => {
+          return (
+            <Link key={post._id} href={`/posts/${post.slug.current}`}>
+              <a className='relative w-full'>
+                <Post {...post} />
+              </a>
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 };
