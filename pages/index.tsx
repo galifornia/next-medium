@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import Header from '../components/Nav';
+import Nav from '../components/Nav';
 import { PostType } from '../typings';
 import { sanityClient } from '../config';
-import Post from '../components/post';
+import Post from '../components/Post';
 import Link from 'next/link';
 
 interface Props {
@@ -17,7 +17,7 @@ const Home = ({ posts }: Props) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header />
+      <Nav />
 
       <section className='max-w-7xl min-h-[40vh] mx-auto bg-yellow-500 flex justify-between items-center px-8 border-y-2 border-x-black'>
         <div className='flex flex-col gap-4 w-full tablet:max-w-[50%]'>
@@ -38,7 +38,7 @@ const Home = ({ posts }: Props) => {
       <div className='grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-3 tablet:gap-4 w-full max-w-7xl mx-auto py-10 justify-items-center'>
         {posts.map((post) => {
           return (
-            <Link key={post._id} href={`/posts/${post.slug.current}`}>
+            <Link key={post._id} href={`/post/${post.slug.current}`}>
               <a className='relative w-full'>
                 <Post {...post} />
               </a>

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const Header = () => {
+const Nav = () => {
   return (
     <header className='mx-auto flex flex-row w-full justify-between px-8 py-4 max-w-7xl'>
       <ul className='flex flex-row gap-4 items-center'>
@@ -54,4 +54,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Nav;
