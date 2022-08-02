@@ -52,7 +52,7 @@ const Home = ({ posts }: Props) => {
 
 export default Home;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const query = `
     *[_type == "post"]{
     _id,
@@ -72,5 +72,6 @@ export const getServerSideProps = async () => {
     props: {
       posts,
     },
+    revalidate: 60, // 1 min
   };
 };
