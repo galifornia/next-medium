@@ -24,7 +24,7 @@ const PostPage = ({ post }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormInput>();
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     console.log({ data });
@@ -35,8 +35,8 @@ const PostPage = ({ post }: Props) => {
 
       <img className='w-full h-40 object-cover' src={mainImg} alt='' />
 
-      <article className='max-w-3xl mx-auto p-5 flex flex-col gap-4'>
-        <h1 className='text-3xl mt-6 mb-3 mx-auto'>{post.title}</h1>
+      <article className='max-w-2xl laptop:max-w-3xl  mx-auto p-5 flex flex-col gap-4 mt-8 laptop:mt-10 mb-10 tablet:mb-28'>
+        <h1 className='text-3xl mb-3 mx-auto'>{post.title}</h1>
         <h3 className='text-xl font-light text-gray-500'>{post.description}</h3>
 
         <div className='flex items-center gap-2'>
@@ -72,7 +72,7 @@ const PostPage = ({ post }: Props) => {
         ></PortableText>
       </article>
 
-      <hr className='max-w-lg my-5 mx-auto border border-yellow-500' />
+      <hr className='max-w-lg w-[82%] my-5 mx-auto border border-yellow-500' />
       <div className='max-w-2xl mx-auto p-5'>
         <h4 className='text-sm text-yellow-500'>Enjoyed this article?</h4>
         <h5 className='text-3xl font-bold'>Leave a comment below!</h5>
