@@ -7,6 +7,7 @@ export interface PostType {
     name: string;
     image: ImageType;
   };
+  comments: CommentType[];
   slug: {
     current: string;
   };
@@ -19,4 +20,11 @@ export interface ImageType {
     _type: 'image';
     _ref: string;
   };
+}
+
+export interface CommentType {
+  _id: string;
+  name: string;
+  email: string;
+  comment: string;
 }

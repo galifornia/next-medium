@@ -40,4 +40,4 @@ next-env.d.ts
 
 # sanity deps
 next-medium/node_modules/
-
+next-medium/dist

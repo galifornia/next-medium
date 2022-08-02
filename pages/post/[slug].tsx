@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next';
-import React from 'react';
+import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import PortableText from 'react-portable-text';
 import Nav from '../../components/Nav';
@@ -25,10 +25,23 @@ const PostPage = ({ post }: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormInput>();
+  const [submitted, setSubmitted] = useState(false);
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    console.log({ data });
+    await fetch('/api/createComment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(() => setSubmitted(true))
+      .catch((err) => {
+        console.log(err);
+        setSubmitted(false);
+      });
   };
+
   return (
     <main>
       <Nav />
@@ -78,58 +91,86 @@ const PostPage = ({ post }: Props) => {
         <h5 className='text-3xl font-bold'>Leave a comment below!</h5>
       </div>
 
-      <form
-        className='flex flex-col p-5 max-w-2xl mx-auto mb-10 gap-4 relative'
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <input {...register('_id')} type='hidden' name='_id' value={post._id} />
-        <label className='flex flex-col gap-2'>
-          <span className='text-gray-700'>Name</span>
-          <input
-            {...register('name', { required: true })}
-            className='shadow border rounded form-input ring-yellow-500 outline-none focus:ring py-2 px-3'
-            placeholder='John Adams'
-            type='text'
-          />
-        </label>
-        <label className='flex flex-col gap-2'>
-          <span className='text-gray-700'>Email</span>
-          <input
-            {...register('email', { required: true })}
-            className='shadow border rounded form-input ring-yellow-500 outline-none focus:ring py-2 px-3'
-            placeholder='john.adams@gmail.com'
-            type='email'
-          />
-        </label>
-        <label className='flex flex-col gap-2'>
-          <span className='text-gray-700'>Comment</span>
-          <textarea
-            {...register('comment', { required: true })}
-            className='shadow border rounded form-textarea ring-yellow-500 outline-none focus:ring py-2 px-3'
-            placeholder='Write your comment here...'
-            rows={8}
-          />
-        </label>
-
-        <div className='flex flex-col gap-4'>
-          {errors.name && (
-            <span className='text-red-500'>- Name field is required</span>
-          )}
-          {errors.email && (
-            <span className='text-red-500'>- Email field is required</span>
-          )}
-          {errors.comment && (
-            <span className='text-red-500'>- Comment field is required</span>
-          )}
+      {submitted ? (
+        <div className='flex flex-col py-10 gap-10 bg-yellow-500 text-white max-w-2xl mx-auto'>
+          <h3 className='font-bold text-3xl'>
+            Comment has been submitted and its pending moderation by admin.
+          </h3>
         </div>
-
-        <button
-          className='bg-yellow-500 text-white font-bold w-full p-2 cursor-pointer '
-          type='submit'
+      ) : (
+        <form
+          className='flex flex-col p-5 max-w-2xl mx-auto mb-10 gap-4 relative'
+          onSubmit={handleSubmit(onSubmit)}
         >
-          Publish
-        </button>
-      </form>
+          <input
+            {...register('_id')}
+            type='hidden'
+            name='_id'
+            value={post._id}
+          />
+          <label className='flex flex-col gap-2'>
+            <span className='text-gray-700'>Name</span>
+            <input
+              {...register('name', { required: true })}
+              className='shadow border rounded form-input ring-yellow-500 outline-none focus:ring py-2 px-3'
+              placeholder='John Adams'
+              type='text'
+            />
+          </label>
+          <label className='flex flex-col gap-2'>
+            <span className='text-gray-700'>Email</span>
+            <input
+              {...register('email', { required: true })}
+              className='shadow border rounded form-input ring-yellow-500 outline-none focus:ring py-2 px-3'
+              placeholder='john.adams@gmail.com'
+              type='email'
+            />
+          </label>
+          <label className='flex flex-col gap-2'>
+            <span className='text-gray-700'>Comment</span>
+            <textarea
+              {...register('comment', { required: true })}
+              className='shadow border rounded form-textarea ring-yellow-500 outline-none focus:ring py-2 px-3'
+              placeholder='Write your comment here...'
+              rows={8}
+            />
+          </label>
+
+          <div className='flex flex-col gap-4'>
+            {errors.name && (
+              <span className='text-red-500'>- Name field is required</span>
+            )}
+            {errors.email && (
+              <span className='text-red-500'>- Email field is required</span>
+            )}
+            {errors.comment && (
+              <span className='text-red-500'>- Comment field is required</span>
+            )}
+          </div>
+
+          <button
+            className='bg-yellow-500 text-white font-bold w-full p-2 cursor-pointer '
+            type='submit'
+          >
+            Publish
+          </button>
+        </form>
+      )}
+
+      <div className='flex flex-col p-5 my-10 gap-4 max-w-2xl mx-auto'>
+        <h1 className='text-4xl'>Comments</h1>
+        <hr className='pb-2' />
+        {post.comments.map((comment) => {
+          return (
+            <div key={comment._id}>
+              <p>
+                <span className='text-yellow-500'>{comment.name}:</span>{' '}
+                {comment.comment}
+              </p>
+            </div>
+          );
+        })}
+      </div>
     </main>
   );
 };
@@ -172,6 +213,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     author -> {
       name,
       image
+    },
+    'comments': *[_type == "comment"
+                  && post._ref == ^._id
+                  && valid == true] {
+      name,
+      email,
+      comment
     },
     description,
     mainImage,
