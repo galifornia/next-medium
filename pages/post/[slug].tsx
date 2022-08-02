@@ -92,7 +92,7 @@ const PostPage = ({ post }: Props) => {
       </div>
 
       {submitted ? (
-        <div className='flex flex-col py-10 gap-10 bg-yellow-500 text-white max-w-2xl mx-auto'>
+        <div className='flex flex-col p-10 gap-10 bg-yellow-500 text-white max-w-2xl mx-auto'>
           <h3 className='font-bold text-3xl'>
             Comment has been submitted and its pending moderation by admin.
           </h3>
